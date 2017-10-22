@@ -68,6 +68,19 @@ RUN apt-get update -qq && apt-get install -qq -y ibus ibus-mozc ibus-pinyin && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
+# Auto start ibus-daemon on mate desktop
+RUN mkdir -p /etc/skel/.config/autostart && \
+    echo "[Desktop Entry]" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    echo "Type=Application" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    echo "Exec=/usr/bin/ibus-daemon -d" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    echo "Hidden=false" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    echo "X-MATE-Autostart-enabled=true" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    echo "Name[en_US]=IBus Daemon" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    echo "Name=IBus Daemon" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    echo "Comment[en_US]=" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    echo "Comment=" >> /etc/skel/.config/autostart/ibus-daemon.desktop && \
+    chmod +x /etc/skel/.config/autostart/ibus-daemon.desktop
+
 EXPOSE 3389
 ENTRYPOINT /docker-entrypoint.sh
 

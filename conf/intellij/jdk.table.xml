@@ -1,0 +1,82 @@
+<application>
+  <component name="ProjectJdkTable">
+    <jdk version="2">
+      <name value="1.8" />
+      <type value="JavaSDK" />
+      <version value="java version &quot;1.8.0&quot;" />
+      <homePath value="/opt/ibm/java" />
+      <roots>
+        <annotationsPath>
+          <root type="composite">
+            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/lib/jdkAnnotations.jar!/" />
+          </root>
+        </annotationsPath>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/aggressive.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/amd64/default/jclSC180/vm.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/charsets.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/cuda4j.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/dataaccess.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/deploy.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/CmpCrmf.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/IBMSecureRandom.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/cldrdata.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/dnsns.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/dtfj-interface.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/dtfj.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/dtfjview.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/gskikm.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/healthcenter.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmcmsprovider.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmjcefips.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmjceprovider.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmkeycert.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmpkcs11impl.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmsaslprovider.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmxmlcrypto.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmxmldsigprovider.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/ibmxmlencprovider.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/jaccess.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/jverbs.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/localedata.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/nashorn.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/traceformat.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/xmlencfw.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ext/zipfs.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmcertpathfw.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmcertpathprovider.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmcfw.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmjcefw.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmjgssfw.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmjgssprovider.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmjssefw.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmjsseprovider2.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmorb.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmorbapi.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmpkcs.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/ibmsaslfw.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/javaws.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/management-agent.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/math.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/plugin.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/resources.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/rt.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/se-service.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/xml.jar!/" />
+            <root type="simple" url="jar:///opt/ibm/java/jre/lib/xmldsigfw.jar!/" />
+          </root>
+        </classPath>
+        <javadocPath>
+          <root type="composite" />
+        </javadocPath>
+        <sourcePath>
+          <root type="composite">
+            <root type="simple" url="jar:///opt/ibm/java/src.zip!/" />
+          </root>
+        </sourcePath>
+      </roots>
+      <additional />
+    </jdk>
+  </component>
+</application>

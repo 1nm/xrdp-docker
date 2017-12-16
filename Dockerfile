@@ -126,11 +126,6 @@ RUN sed -i -e "s/-startup/-vm\njava\n-startup/g" /opt/eclipse/eclipse.ini && \
     echo "Name=Eclipse Neon" >> /etc/skel/Desktop/eclipse.desktop && \
     chmod +x /etc/skel/Desktop/eclipse.desktop
 
-
-# Java
-ENV JAVA_HOME="/usr/lib/jvm/open-jdk" \
-    PATH=$JAVA_HOME/bin:$PATH
-
 # Install Eclipse Plugins
 
 # Buildship (Gradle)
@@ -195,7 +190,7 @@ RUN echo "[Desktop Entry]" >> /etc/skel/Desktop/idea.desktop && \
 # Add user configurations
 RUN mkdir /etc/skel/workspace && \
     echo "export LANG=en_US.UTF-8" >> /etc/skel/.bashrc && \
-    echo "export JAVA_HOME=/usr/lib/jvm/open-jdk" >> /etc/skel/.bashrc && \
+    echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> /etc/skel/.bashrc && \
     echo "export MAVEN_HOME=/opt/maven-$MAVEN_VERSION" >> /etc/skel/.bashrc && \
     echo "export GRADLE_HOME=/opt/gradle-$GRADLE_VERSION" >> /etc/skel/.bashrc && \
     echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> /etc/skel/.bashrc

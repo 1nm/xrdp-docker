@@ -1,5 +1,5 @@
-FROM ubuntu:17.04
-LABEL description="xrdp docker"
+FROM ubuntu:17.10
+LABEL description="Eclipse Intellij Docker"
 LABEL maintainer "Xiangning Liu <xiangningliu@gmail.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -16,7 +16,7 @@ RUN apt-get update -qq && apt-get install -qq -y mate-desktop-environment-core m
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
-# Build xorg 0.9.4
+# Build xrdp 0.9.5
 RUN apt-get update -qq && apt-get install -qq -y git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev  flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2 g++ xutils libfuse-dev libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev xorg && \
     apt-get clean -qq -y && \
     apt-get autoclean -qq -y && \
@@ -26,14 +26,14 @@ RUN apt-get update -qq && apt-get install -qq -y git autoconf libtool pkg-config
     rm -rf /tmp/*
 
 RUN BD="/tmp/xrdp-build" && mkdir -p "${BD}"/git/neutrinolabs && cd "${BD}"/git/neutrinolabs && \
-    wget https://github.com/neutrinolabs/xrdp/releases/download/v0.9.4/xrdp-0.9.4.tar.gz && \
-    wget https://github.com/neutrinolabs/xorgxrdp/releases/download/v0.2.4/xorgxrdp-0.2.4.tar.gz && \
+    wget https://github.com/neutrinolabs/xrdp/releases/download/v0.9.5/xrdp-0.9.5.tar.gz && \
+    wget https://github.com/neutrinolabs/xorgxrdp/releases/download/v0.2.5/xorgxrdp-0.2.5.tar.gz && \
 
-    cd "${BD}"/git/neutrinolabs && tar xvfz xrdp-0.9.4.tar.gz && cd "${BD}"/git/neutrinolabs/xrdp-0.9.4 && \
+    cd "${BD}"/git/neutrinolabs && tar xvfz xrdp-0.9.5.tar.gz && cd "${BD}"/git/neutrinolabs/xrdp-0.9.5 && \
     ./bootstrap && ./configure --enable-fuse --enable-mp3lame --enable-pixman && make && make install && \
     ln -s /usr/local/sbin/xrdp{,-sesman} /usr/sbin && \
 
-    cd "${BD}"/git/neutrinolabs && tar xvfz xorgxrdp-0.2.4.tar.gz && cd "${BD}"/git/neutrinolabs/xorgxrdp-0.2.4 && \
+    cd "${BD}"/git/neutrinolabs && tar xvfz xorgxrdp-0.2.5.tar.gz && cd "${BD}"/git/neutrinolabs/xorgxrdp-0.2.5 && \
     ./bootstrap && ./configure && make && make install && \
 
     rm -fr "${BD}" && \
@@ -87,7 +87,7 @@ RUN for scala_version in 2.10.6 2.11.8 2.12.1; do \
     done
 
 ENV MAVEN_VERSION 3.3.9
-ENV GRADLE_VERSION 4.1
+ENV GRADLE_VERSION 4.4
 
 # Install Maven
 
@@ -108,7 +108,7 @@ RUN wget -q -O "/tmp/gradle-${GRADLE_VERSION}.zip" "https://services.gradle.org/
 # Change to a local mirror to speed up if you want to speed up downloading
 #ENV ECLIPSE_URL http://ftp.jaist.ac.jp/pub/eclipse
 ENV ECLIPSE_URL http://download.eclipse.org
-RUN wget -O /tmp/eclipse.tar.gz ${ECLIPSE_URL}/technology/epp/downloads/release/oxygen/1/eclipse-jee-oxygen-1-linux-gtk-x86_64.tar.gz && \
+RUN wget -O /tmp/eclipse.tar.gz ${ECLIPSE_URL}/technology/epp/downloads/release/oxygen/2/eclipse-jee-oxygen-2-linux-gtk-x86_64.tar.gz && \
     mkdir -p /opt/eclipse && \
     tar -xf /tmp/eclipse.tar.gz --strip-components=1 -C /opt/eclipse && \
     rm -fr /tmp/*
@@ -153,11 +153,11 @@ RUN /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -no
     /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://www.mulgasoft.com/emacsplus/e4/update-site" -installIU "com.mulgasoft.emacsplus.optional.features.feature.group"
 
 
-# Install IntelliJ IDEA 2017.2
+# Install IntelliJ IDEA 2017.3
 
-ENV INTELLIJ_CONFIG_DIR .IdeaIC2017.2
+ENV INTELLIJ_CONFIG_DIR .IdeaIC2017.3
 
-RUN wget -q -O /tmp/intellij.tar.gz https://download-cf.jetbrains.com/idea/ideaIC-2017.2.5.tar.gz && \
+RUN wget -q -O /tmp/intellij.tar.gz https://download-cf.jetbrains.com/idea/ideaIC-2017.3.3.tar.gz && \
     mkdir -p /opt/intellij && \
     tar -xf /tmp/intellij.tar.gz --strip-components=1 -C /opt/intellij && \
     rm -f /opt/intellij.tar.gz
@@ -169,7 +169,7 @@ RUN mkdir -p /etc/skel/${INTELLIJ_CONFIG_DIR}/config/options && \
 
 # Scala Plugin
 
-RUN wget -q -O /etc/skel/${INTELLIJ_CONFIG_DIR}/config/plugins/scala.zip https://download.plugins.jetbrains.com/1347/37646/scala-intellij-bin-2017.2.6.zip && \
+RUN wget -q -O /etc/skel/${INTELLIJ_CONFIG_DIR}/config/plugins/scala.zip https://plugins.jetbrains.com/files/1347/42173/scala-intellij-bin-2017.3.11.1.zip && \
     cd /etc/skel/${INTELLIJ_CONFIG_DIR}/config/plugins/ && \
     unzip -q scala.zip && \
     rm -f scala.zip
@@ -194,6 +194,11 @@ RUN mkdir /etc/skel/workspace && \
     echo "export MAVEN_HOME=/opt/maven-$MAVEN_VERSION" >> /etc/skel/.bashrc && \
     echo "export GRADLE_HOME=/opt/gradle-$GRADLE_VERSION" >> /etc/skel/.bashrc && \
     echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> /etc/skel/.bashrc
+
+RUN pip3 install percol
+COPY conf/.percol.d /etc/skel/.percol.d
+
+RUN sed -i 's/allowed_users=console/allowed_users=anybody/' /etc/X11/Xwrapper.config
 
 EXPOSE 3389
 ENTRYPOINT /docker-entrypoint.sh

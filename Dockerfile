@@ -5,7 +5,8 @@ LABEL maintainer "Xiangning Liu <xiangningliu@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install mate desktop environment, and other tools
-RUN apt-get update -qq && apt-get install -qq -y mate-desktop-environment-core mate-themes ubuntu-mate-wallpapers wget sudo emacs25 vim zip unzip git locales tzdata firefox zsh python3-pip openjdk-8-jdk bash-completion && \
+RUN apt-get update -qq && apt-get install -qq -y mate-desktop-environment-core mate-themes ubuntu-mate-wallpapers \
+        wget sudo vim zip unzip git locales tzdata firefox zsh python3-pip openjdk-8-jdk bash-completion terminator && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
     apt-get update -qq -y && apt-get install -qq -y google-chrome-stable && \
@@ -15,6 +16,17 @@ RUN apt-get update -qq && apt-get install -qq -y mate-desktop-environment-core m
     rm -f /etc/apt/sources.list.d/google.list && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
+
+# Install emacs26
+RUN apt-get update -qq && apt-get install -qq -y software-properties-common && \
+    add-apt-repository ppa:kelleyk/emacs && apt-get update -qq -y && apt-get install -qq -y emacs26 && \
+    apt-get clean -qq -y && \
+    apt-get autoclean -qq -y && \
+    apt-get autoremove -qq -y && \
+    rm -f /etc/apt/sources.list.d/google.list && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/*
+
 
 # Build xrdp 0.9.7
 RUN apt-get update -qq && apt-get install -qq -y git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2 g++ xutils libfuse-dev libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev xorg && \
@@ -128,15 +140,15 @@ RUN sed -i -e "s/-startup/-vm\njava\n-startup/g" /opt/eclipse/eclipse.ini && \
 
 # Install Eclipse Plugins
 
-# Scala Plugin
-# Scala 2.11
-RUN /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://download.scala-ide.org/sdk/lithium/e46/scala211/stable/site" -installIU "org.scala-ide.scala211.feature.feature.group" && \
-# Scala IDE for Eclipse
-    /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://download.scala-ide.org/sdk/lithium/e46/scala211/stable/site" -installIU "org.scala-ide.sdt.feature.feature.group" && \
-# ScalaTest for Scala IDE
-    /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://download.scala-ide.org/sdk/lithium/e46/scala211/stable/site" -installIU "org.scala-ide.sdt.scalatest.feature.feature.group" && \
+# # Scala Plugin
+# # Scala 2.11
+# RUN /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://download.scala-ide.org/sdk/lithium/e46/scala211/stable/site" -installIU "org.scala-ide.scala211.feature.feature.group" && \
+# # Scala IDE for Eclipse
+#     /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://download.scala-ide.org/sdk/lithium/e46/scala211/stable/site" -installIU "org.scala-ide.sdt.feature.feature.group" && \
+# # ScalaTest for Scala IDE
+#     /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://download.scala-ide.org/sdk/lithium/e46/scala211/stable/site" -installIU "org.scala-ide.sdt.scalatest.feature.feature.group" && \
 # zinc
-    /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://download.scala-ide.org/sdk/lithium/e46/scala211/stable/site" -installIU "org.scala-ide.zinc.feature.feature.group"
+#    /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://download.scala-ide.org/sdk/lithium/e46/scala211/stable/site" -installIU "org.scala-ide.zinc.feature.feature.group"
 
 # Emacs+
 RUN /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -noSplash -repository "http://www.mulgasoft.com/emacsplus/e4/update-site" -installIU "com.mulgasoft.emacsplus.feature.feature.group" && \
@@ -176,6 +188,16 @@ RUN echo "[Desktop Entry]" >> /etc/skel/Desktop/idea.desktop && \
     echo "Exec=/opt/intellij/bin/idea.sh" >> /etc/skel/Desktop/idea.desktop && \
     echo "Name=IntelliJ IDEA" >> /etc/skel/Desktop/idea.desktop && \
     chmod +x /etc/skel/Desktop/idea.desktop
+
+# Install VSCode
+RUN apt-get update -qq && apt-get install -qq -y --no-install-recommends libgconf-2-4 && \
+    apt-get clean -qq -y && \
+    apt-get autoclean -qq -y && \
+    apt-get autoremove -qq -y &&  \
+    rm -rf /var/lib/apt/lists/* && \
+    wget -q -O /tmp/vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868 && \
+    dpkg -i /tmp/vscode.deb && \
+    rm -rf /tmp/*
 
 # Add user configurations
 RUN mkdir /etc/skel/workspace && \

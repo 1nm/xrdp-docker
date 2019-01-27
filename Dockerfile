@@ -28,7 +28,7 @@ RUN apt-get update -qq && apt-get install -qq -y software-properties-common && \
     rm -rf /tmp/*
 
 
-# Build xrdp 0.9.7
+# Build xrdp 0.9.9
 RUN apt-get update -qq && apt-get install -qq -y git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2 g++ xutils libfuse-dev libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev xorg && \
     apt-get clean -qq -y && \
     apt-get autoclean -qq -y && \
@@ -38,14 +38,14 @@ RUN apt-get update -qq && apt-get install -qq -y git autoconf libtool pkg-config
     rm -rf /tmp/*
 
 RUN BD="/tmp/xrdp-build" && mkdir -p "${BD}"/git/neutrinolabs && cd "${BD}"/git/neutrinolabs && \
-    wget https://github.com/neutrinolabs/xrdp/releases/download/v0.9.7/xrdp-0.9.7.tar.gz && \
-    wget https://github.com/neutrinolabs/xorgxrdp/releases/download/v0.2.7/xorgxrdp-0.2.7.tar.gz && \
+    wget https://github.com/neutrinolabs/xrdp/releases/download/v0.9.9/xrdp-0.9.9.tar.gz && \
+    wget https://github.com/neutrinolabs/xorgxrdp/releases/download/v0.2.9/xorgxrdp-0.2.9.tar.gz && \
 
-    cd "${BD}"/git/neutrinolabs && tar xvfz xrdp-0.9.7.tar.gz && cd "${BD}"/git/neutrinolabs/xrdp-0.9.7 && \
+    cd "${BD}"/git/neutrinolabs && tar xvfz xrdp-0.9.9.tar.gz && cd "${BD}"/git/neutrinolabs/xrdp-0.9.9 && \
     ./bootstrap && ./configure --enable-fuse --enable-mp3lame --enable-pixman && make && make install && \
     ln -s /usr/local/sbin/xrdp{,-sesman} /usr/sbin && \
 
-    cd "${BD}"/git/neutrinolabs && tar xvfz xorgxrdp-0.2.7.tar.gz && cd "${BD}"/git/neutrinolabs/xorgxrdp-0.2.7 && \
+    cd "${BD}"/git/neutrinolabs && tar xvfz xorgxrdp-0.2.9.tar.gz && cd "${BD}"/git/neutrinolabs/xorgxrdp-0.2.9 && \
     ./bootstrap && ./configure && make && make install && \
 
     rm -fr "${BD}" && \
@@ -98,8 +98,8 @@ RUN for scala_version in 2.10.6 2.11.8 2.12.1; do \
     rm -f /tmp/scala-${scala_version}.tgz; \
     done
 
-ENV MAVEN_VERSION 3.3.9
-ENV GRADLE_VERSION 4.8
+ENV MAVEN_VERSION 3.6.0
+ENV GRADLE_VERSION 5.1
 
 # Install Maven
 
@@ -118,9 +118,10 @@ RUN wget -q -O "/tmp/gradle-${GRADLE_VERSION}.zip" "https://services.gradle.org/
 # Install Eclipse
 
 # Change to a local mirror to speed up if you want to speed up downloading
+ENV ECLIPSE_RELEASE 2018-12
 ENV ECLIPSE_URL http://ftp.jaist.ac.jp/pub/eclipse
 # ENV ECLIPSE_URL http://download.eclipse.org
-RUN wget -O /tmp/eclipse.tar.gz ${ECLIPSE_URL}/technology/epp/downloads/release/photon/R/eclipse-jee-photon-R-linux-gtk-x86_64.tar.gz && \
+RUN wget -O /tmp/eclipse.tar.gz ${ECLIPSE_URL}/technology/epp/downloads/release/${ECLIPSE_RELEASE}/R/eclipse-jee-${ECLIPSE_RELEASE}-R-linux-gtk-x86_64.tar.gz && \
     mkdir -p /opt/eclipse && \
     tar -xf /tmp/eclipse.tar.gz --strip-components=1 -C /opt/eclipse && \
     rm -fr /tmp/*
@@ -157,9 +158,9 @@ RUN /opt/eclipse/eclipse -clean -application org.eclipse.equinox.p2.director -no
 
 # Install IntelliJ IDEA
 
-ENV INTELLIJ_CONFIG_DIR .IdeaIC2018.1
+ENV INTELLIJ_CONFIG_DIR .IdeaIC2018.3
 
-RUN wget -q -O /tmp/intellij.tar.gz https://download-cf.jetbrains.com/idea/ideaIC-2018.1.5.tar.gz && \
+RUN wget -q -O /tmp/intellij.tar.gz https://download-cf.jetbrains.com/idea/ideaIC-2018.3.3.tar.gz && \
     mkdir -p /opt/intellij && \
     tar -xf /tmp/intellij.tar.gz --strip-components=1 -C /opt/intellij && \
     rm -f /opt/intellij.tar.gz

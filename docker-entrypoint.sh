@@ -19,9 +19,8 @@ fi
 
 echo "Starting xrdp..."
 rm -fr /var/run/xrdp*
-/usr/local/sbin/xrdp-sesman
-/usr/local/sbin/xrdp
+/usr/sbin/xrdp-sesman
+/usr/sbin/xrdp
 
 echo "Done.  System is ready."
 tail -f /dev/null
-

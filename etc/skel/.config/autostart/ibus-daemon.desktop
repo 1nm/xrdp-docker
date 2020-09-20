@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/ibus-daemon -d
+Hidden=false
+X-MATE-Autostart-enabled=true
+Name[en_US]=IBus Daemon
+Name=IBus Daemon
+Comment[en_US]=
+Comment=

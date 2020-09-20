@@ -8,20 +8,19 @@ LABEL description="XRDP Docker"
 LABEL maintainer "1nm  <1nm@users.noreply.github.com>"
 
 # Install mate desktop environment, and other tools
-RUN apt update && apt install -y mate-desktop-environment-core mate-themes ubuntu-mate-wallpapers xrdp \
+RUN apt-get update && apt-get install -y mate-desktop-environment-core mate-themes ubuntu-mate-wallpapers xrdp \
         curl wget sudo vim zip unzip git locales tzdata zsh python3-pip bash-completion openjdk-11-jdk-headless \
         libgconf-2-4 \
-        ibus ibus-mozc ibus-pinyin && \
+        ibus ibus-mozc ibus-pinyin ttf-wqy-microhei && \
     # Install Google Chrome
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
-    apt update -y && apt-get install -qq -y google-chrome-stable && \
+    apt-get update -y && apt-get install -qq -y google-chrome-stable && \
     # Install VSCode
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
     install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ && \
     echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list && \
-    apt install -y apt-transport-https && apt -y update && apt install -y code && \
-    rm -rf /tmp/* && \
+    apt-get install -y apt-transport-https && apt-get -y update && apt-get install -y code && \
     rm -f /etc/apt/sources.list.d/google.list && \
     rm -f /etc/apt/sources.list.d/vscode.list && \
     rm -rf /var/lib/apt/lists/*

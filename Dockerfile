@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 FROM base
 LABEL description="XRDP Docker"
-LABEL maintainer "1nm  <1nm@users.noreply.github.com>"
+LABEL maintainer "1nm <1nm@users.noreply.github.com>"
 
 # Install mate desktop environment, and other tools
 RUN apt-get update && apt-get install -y mate-desktop-environment-core mate-themes ubuntu-mate-wallpapers xrdp \

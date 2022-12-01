@@ -25,14 +25,25 @@ RUN apt-get update && apt-get install -y mate-desktop-environment-core mate-them
     rm -f /etc/apt/sources.list.d/vscode.list && \
     rm -rf /var/lib/apt/lists/*
 
+# Install Slack
+
+RUN apt-get update && apt-get install -y \
+    libappindicator3-1 \
+    --no-install-recommends && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN wget https://downloads.slack-edge.com/releases/linux/4.29.149/prod/x64/slack-desktop-4.29.149-amd64.deb -O /tmp/slack-desktop.deb && \
+    cd /tmp/ && \
+    dpkg -i slack-desktop.deb && \
+    rm -rf /tmp/slack-desktop*.deb
+
 COPY etc/skel /etc/skel
 
 # Add user configurations
 RUN echo "export LANG=en_US.UTF-8" >> /etc/skel/.bashrc && \
     echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> /etc/skel/.bashrc && \
-    echo "export MAVEN_HOME=/opt/maven-$MAVEN_VERSION" >> /etc/skel/.bashrc && \
-    echo "export GRADLE_HOME=/opt/gradle-$GRADLE_VERSION" >> /etc/skel/.bashrc && \
-    echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> /etc/skel/.bashrc
+    echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/skel/.bashrc
 
 # Setting default time zone to Asia/Tokyo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata \

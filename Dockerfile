@@ -9,13 +9,13 @@ LABEL maintainer "1nm <1nm@users.noreply.github.com>"
 
 # Install mate desktop environment, and other tools
 RUN apt-get update && apt-get install -y mate-desktop-environment-core mate-themes ubuntu-mate-wallpapers xrdp \
-        curl wget sudo vim zip unzip git locales tzdata zsh python3-pip bash-completion openjdk-11-jdk-headless \
+        curl wget sudo vim zip unzip git locales tzdata zsh python3-pip bash-completion openjdk-17-jdk-headless \
         libgconf-2-4 \
         ibus ibus-mozc ibus-pinyin ttf-wqy-microhei && \
     # Install Google Chrome
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
-    apt-get update -y && apt-get install -qq -y google-chrome-stable && \
+    wget -qO /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt-get install -y /tmp/google-chrome-stable_current_amd64.deb && \
+    rm -f /tmp/google-chrome-stable_current_amd64.deb && \
     # Install VSCode
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
     install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ && \

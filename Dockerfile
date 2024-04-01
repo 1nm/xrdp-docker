@@ -8,8 +8,8 @@ ARG TZ=Asia/Tokyo
 # Install mate desktop environment, and other tools
 RUN apt-get update && apt-get install -y mate-desktop-environment-core mate-themes ubuntu-mate-wallpapers xrdp \
         curl wget sudo vim zip unzip git locales tzdata zsh python3-pip bash-completion openjdk-17-jdk-headless \
-        libgconf-2-4 libappindicator3-1 && \
-        ibus ibus-mozc ibus-pinyin ttf-wqy-microhei \
+        libgconf-2-4 libappindicator3-1 \
+        ibus ibus-mozc ibus-pinyin ttf-wqy-microhei && \
     # Install Google Chrome
     wget -qO /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt-get install -y /tmp/google-chrome-stable_current_amd64.deb && \
